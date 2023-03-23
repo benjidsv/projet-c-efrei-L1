@@ -1,0 +1,3 @@
+/Users/benji/CLionProjects/projetC/cmake-build-debug/CMakeFiles/projetC.dir
+/Users/benji/CLionProjects/projetC/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/benji/CLionProjects/projetC/cmake-build-debug/CMakeFiles/rebuild_cache.dir

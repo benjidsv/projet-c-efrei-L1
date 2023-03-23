@@ -1,0 +1,5 @@
+# ninja log v5
+0	111	1679588629583920535	build.ninja	5660fe4675e488a3
+0	275	1679588629871744103	CMakeFiles/projetC.dir/main.c.o	75dbcffbd196ab8d
+1	276	1679588629871732186	CMakeFiles/projetC.dir/datastructures/shapes.c.o	1c3ac9500624e613
+276	360	1679588629958706295	projetC	c6d4d01f8aac92b9
