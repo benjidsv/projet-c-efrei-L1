@@ -15,6 +15,7 @@ Shape *MakePointShape(int x, int y) {
     Shape *s = malloc(sizeof(Shape));
     s->type = POINT;
     s->shape = MakePoint(x, y);
+    s->id = 0;
 
     return s;
 }
@@ -41,6 +42,7 @@ Shape *MakeLineShape(Point *start, Point *end) {
     Shape *s = malloc(sizeof(Shape));
     s->type = LINE;
     s->shape = MakeLine(start, end);
+    s->id = 0;
 
     return s;
 }
@@ -68,6 +70,7 @@ Shape *MakeSquareShape(Point *topLeft, int length) {
     Shape *s = malloc(sizeof(Shape));
     s->type = SQUARE;
     s->shape = MakeSquare(topLeft, length);
+    s->id = 0;
 
     return s;
 }
@@ -96,6 +99,7 @@ Shape *MakeRectangleShape(Point *topLeft, int width, int height) {
     Shape *s = malloc(sizeof(Shape));
     s->type = RECTANGLE;
     s->shape = MakeRectangle(topLeft, width, height);
+    s->id = 0;
 
     return s;
 }
@@ -123,6 +127,7 @@ Shape *MakeCircleShape(Point *center, int radius) {
     Shape *s = malloc(sizeof(Shape));
     s->type = CIRCLE;
     s->shape = MakeCircle(center, radius);
+    s->id = 0;
 
     return s;
 }
@@ -150,6 +155,7 @@ Shape *MakePolygonShape(Point **points, int numberOfPoints) {
     Shape *s = malloc(sizeof(Shape));
     s->type = POLYGON;
     s->shape = MakePolygon(points, numberOfPoints);
+    s->id = 0;
 
     return s;
 }
@@ -161,4 +167,60 @@ void DeletePolygon(Polygon *p) {
     free(p->points);
     free(p);
 }
+
+void PrintPolygon(Polygon *p) {
+    printf("POLYGONE ");
+    for (int i = 0; i < p->numberOfPoints; ++i) {
+        printf("(%d %d) ", p->points[i]->x, p->points[i]->y);
+    }
+}
 //endregion
+
+void DeleteShape(Shape *s) {
+    switch (s->type) {
+        case POINT:
+            DeletePoint((Point*)s->shape);
+            break;
+        case LINE:
+            DeleteLine((Line*)s->shape);
+            break;
+        case SQUARE:
+            DeleteSquare((Square*)s->shape);
+            break;
+        case RECTANGLE:
+            DeleteRectangle((Rectangle*)s->shape);
+            break;
+        case CIRCLE:
+            DeleteCircle((Circle*)s->shape);
+            break;
+        case POLYGON:
+            DeletePolygon((Polygon*)s->shape);
+            break;
+    }
+
+    free(s);
+}
+
+void PrintShape(Shape *s) {
+    printf("    %d : ", s->id);
+    switch (s->type) {
+        case POINT:
+            PrintPoint((Point*)s->shape);
+            break;
+        case LINE:
+            PrintLine((Line*)s->shape);
+            break;
+        case SQUARE:
+            PrintSquare((Square*)s->shape);
+            break;
+        case RECTANGLE:
+            PrintRectangle((Rectangle*)s->shape);
+            break;
+        case CIRCLE:
+            PrintCircle((Circle*)s->shape);
+            break;
+        case POLYGON:
+            PrintPolygon((Polygon*)s->shape);
+            break;
+    }
+}

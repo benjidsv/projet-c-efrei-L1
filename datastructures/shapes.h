@@ -15,14 +15,17 @@ typedef enum EShapeType {
 typedef struct Shape {
     EShapeType type;
     void *shape;
+    unsigned int id;
 } Shape;
 
 void DeleteShape(Shape *s);
+void PrintShape(Shape *s);
 
 typedef struct Point {
     int x, y;
 } Point;
 
+Point *MakePoint(int x, int y);
 Shape *MakePointShape(int x, int y);
 void DeletePoint(Point *p);
 void PrintPoint(Point *p);

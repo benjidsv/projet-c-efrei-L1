@@ -5,7 +5,13 @@
 
 #endif //PROJETC_LINKED_LIST_H
 
-typedef struct ShapeLinkedList{
-    Shape *element;
-    struct ShapeLinkedList *next;
-} ShapeLinkedList;
+typedef struct LListElement {
+    Shape *data;
+    struct LListElement *previous;
+    struct LListElement *next;
+} LListElement;
+
+typedef struct LList {
+    LListElement *first;
+    LListElement *last;
+} LList;
