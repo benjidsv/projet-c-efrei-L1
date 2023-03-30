@@ -64,6 +64,12 @@ build CMakeFiles/projetC.dir/shape_manager.c.o: C_COMPILER__projetC_Debug /Users
   OBJECT_DIR = CMakeFiles/projetC.dir
   OBJECT_FILE_DIR = CMakeFiles/projetC.dir
 
+build CMakeFiles/projetC.dir/user_interface.c.o: C_COMPILER__projetC_Debug /Users/benji/CLionProjects/projetC/user_interface.c || cmake_object_order_depends_target_projetC
+  DEP_FILE = CMakeFiles/projetC.dir/user_interface.c.o.d
+  FLAGS = -g -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.6 -fcolor-diagnostics -std=gnu2x
+  OBJECT_DIR = CMakeFiles/projetC.dir
+  OBJECT_FILE_DIR = CMakeFiles/projetC.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target projetC
@@ -72,7 +78,7 @@ build CMakeFiles/projetC.dir/shape_manager.c.o: C_COMPILER__projetC_Debug /Users
 #############################################
 # Link the executable projetC
 
-build projetC: C_EXECUTABLE_LINKER__projetC_Debug CMakeFiles/projetC.dir/main.c.o CMakeFiles/projetC.dir/datastructures/shapes.c.o CMakeFiles/projetC.dir/shape_manager.c.o
+build projetC: C_EXECUTABLE_LINKER__projetC_Debug CMakeFiles/projetC.dir/main.c.o CMakeFiles/projetC.dir/datastructures/shapes.c.o CMakeFiles/projetC.dir/shape_manager.c.o CMakeFiles/projetC.dir/user_interface.c.o
   FLAGS = -g -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.6
   OBJECT_DIR = CMakeFiles/projetC.dir
   POST_BUILD = :

@@ -53,7 +53,7 @@ void DeleteLine(Line *l) {
     free(l);
 }
 void PrintLine(Line *l) {
-    printf("LINE %d %d %d %d", l->start->x, l->start->y, l->end->x, l->end->y);
+    printf("LIGNE (%d, %d) (%d, %d)", l->start->x, l->start->y, l->end->x, l->end->y);
 }
 //endregion
 

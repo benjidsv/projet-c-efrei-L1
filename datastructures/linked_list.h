@@ -5,13 +5,24 @@
 
 #endif //PROJETC_LINKED_LIST_H
 
-typedef struct LListElement {
+typedef struct ShapeLListElement {
     Shape *data;
-    struct LListElement *previous;
-    struct LListElement *next;
-} LListElement;
+    struct ShapeLListElement *previous;
+    struct ShapeLListElement *next;
+} ShapeLListElement;
 
-typedef struct LList {
-    LListElement *first;
-    LListElement *last;
-} LList;
+typedef struct ShapeLList {
+    ShapeLListElement *first;
+    ShapeLListElement *last;
+} ShapeLList;
+
+typedef struct UIntLListElement {
+    unsigned int data;
+    struct UIntLListElement *previous;
+    struct UIntLListElement *next;
+} UIntLListElement;
+
+typedef struct IntLList {
+    UIntLListElement *first;
+    UIntLListElement *last;
+} UIntLList;

@@ -3,17 +3,22 @@
 #include <printf.h>
 #include "shape_manager.h"
 
-LList g_shapes;
+ShapeLList g_shapes; // Liste qui sert à stocker les formes
+UIntLList g_freeIds; // Liste qui sert à stocker les id libres pour les réutiliser
 unsigned int g_id = 1;
 
 unsigned int GetNextId() {
-    //TODO: change implementation to make unused ids be reused
-    return g_id++;
+    if (g_freeIds.first == NULL) return g_id++; // Si aucun id n'est libre on retourne simplement le suivant
+
+    unsigned int id = g_freeIds.first->data;
+    if (g_freeIds.first->next == NULL) g_freeIds.first = NULL;
+    else g_freeIds.first = g_freeIds.first->next;
+    return id;
 }
 
 unsigned int AddShape(Shape *s) {
     // On crée l'élément à ajouter
-    LListElement *new = malloc(sizeof(LListElement));
+    ShapeLListElement *new = malloc(sizeof(ShapeLListElement));
     new->data = s;
     new->next = NULL; // C'est le dernier élément
 
@@ -34,48 +39,69 @@ unsigned int AddShape(Shape *s) {
 }
 
 int RemoveShape(unsigned int id) {
-    LListElement *toRemove;
+    ShapeLListElement *toRemove;
     if (g_shapes.first->data->id == id) {
         // On doit supprimer le premier élément
         toRemove = g_shapes.first;
         if (toRemove->next != NULL) {
+            // Si c'est le seul élément de la liste
             toRemove->next->previous = NULL;
             g_shapes.first = toRemove->next;
         } else g_shapes.first = NULL;
     }
     else if (g_shapes.last->data->id == id) {
+        // On doit supprimer le dernier élément
         toRemove = g_shapes.last;
         toRemove->previous->next = NULL;
     }
     else {
-        LListElement *next = g_shapes.first;
+        // L'élément est quelque part dans la liste
+        ShapeLListElement *next = g_shapes.first;
         while (next != NULL) {
+            // On parcoure la liste jusqu'à trouver l'élément
             if (next->data->id == id) break;
             next = next->next;
         }
 
         if (next == NULL) return 0; // Si c'est nul ça veut dire qu'on à pas trouvé d'élément avec le bon id
 
+        // On le retire de la liste
         toRemove = next;
         toRemove->next->previous = toRemove->previous;
         toRemove->previous->next = toRemove->next;
     }
 
+    // On le supprime de la mémoire
     DeleteShape(toRemove->data);
     free(toRemove);
+
+    // On ajoute l'id de la forme supprimée aux id libres pour le réutiliser plus tard
+    UIntLListElement *new = malloc(sizeof(UIntLListElement));
+    new->data = id;
+    new->next = NULL;
+    if (g_freeIds.first == NULL) {
+        g_freeIds.first = new;
+        g_freeIds.last = new;
+        new->previous = NULL;
+    }
+    else {
+        new->previous = g_freeIds.last;
+        g_freeIds.last->next = new;
+        g_freeIds.last = new;
+    }
 
     return 1;
 }
 
 void PrintShapes() {
     if (g_shapes.first == NULL || g_shapes.first->data == NULL) {
-        printf("La liste est vide.");
+        printf("La liste est vide\n");
         return;
     }
 
-    printf("La liste contient les formes suivantes:\n    ID : FORME PARAMÈTRES\n");
+    printf("La liste contient les formes suivantes:\n");
     // On parcoure la liste pour afficher chaque élément
-    LListElement *next = g_shapes.first;
+    ShapeLListElement *next = g_shapes.first;
     while (next != NULL) {
         PrintShape(next->data);
         printf("\n");

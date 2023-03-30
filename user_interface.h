@@ -1,0 +1,7 @@
+#ifndef PROJETC_USER_INTERFACE_H
+#define PROJETC_USER_INTERFACE_H
+
+#endif //PROJETC_USER_INTERFACE_H
+
+//
+int MainLoop();
