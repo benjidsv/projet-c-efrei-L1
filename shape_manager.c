@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <printf.h>
 #include "shape_manager.h"
+#include "datastructures/linked_list.h"
 
 ShapeLList g_shapes; // Liste qui sert à stocker les formes
 UIntLList g_freeIds; // Liste qui sert à stocker les id libres pour les réutiliser
@@ -53,6 +54,7 @@ int RemoveShape(unsigned int id) {
         // On doit supprimer le dernier élément
         toRemove = g_shapes.last;
         toRemove->previous->next = NULL;
+        g_shapes.last = toRemove->previous;
     }
     else {
         // L'élément est quelque part dans la liste
@@ -107,4 +109,8 @@ void PrintShapes() {
         printf("\n");
         next = next->next;
     }
+}
+
+ShapeLList* GetShapes() {
+    return &g_shapes;
 }

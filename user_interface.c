@@ -1,12 +1,12 @@
 #include "user_interface.h"
 #include "shape_manager.h"
+#include "shape_drawer.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 
 #define MAX_INPUT_LENGTH 32
 
-#define PRINT_ACTIONS_PROMPT printf("Choisissez une action:\n    1 - Créer une forme\n    2 - Supprimer une forme\n    3 - Afficher la liste des formes\n    4 - Quitter le programme\n")
+#define PRINT_ACTIONS_PROMPT printf("Choisissez une action:\n    1 - Créer une forme\n    2 - Supprimer une forme\n    3 - Afficher la liste des formes\n    4 - Dessiner les formes\n    5 - Quitter le programme\n")
 #define PRINT_SHAPE_CREATION_PROMPT printf("Quel type de forme voulez vous créer ?\n    1 - Point\n    2 - Ligne\n    3 - Carré\n    4 - Rectangle\n    5 - Cercle\n    6 - Polygone\n    7 - Retour\n")
 
 // Lis un entier et le retourne
@@ -41,7 +41,7 @@ int ReadIntPositive() {
         inputAsLong = strtol(input, &end, 10);
         // Si la fin est égale à l'entrée originale / la fin n'est pas une nouvelle ligne (dernier caractère avec fgets)
         // cela veut dire qu'il y a eu un problème (très probablement que la saisie est invalide)
-        // On vérifie aussi que l'entrée est bien entre min et max
+        // On vérifie aussi que l'entrée est bien positive
         if (end == input || *end != '\n' || inputAsLong < 0) {
             printf("Saisie invalide - entrez une valeur appropriée\n> ");
         } else break; // Sinon la saisie est valide
@@ -80,7 +80,7 @@ void CreatePoint() {
     y = ReadInt();
 
     AddShape(MakePointShape(x, y));
-    printf("Le point à été ajoutée avec succès\n");
+    printf("Le point a été ajouté avec succès\n");
 }
 
 void CreateLine() {
@@ -97,7 +97,7 @@ void CreateLine() {
     y2 = ReadInt();
 
     AddShape(MakeLineShape(MakePoint(x1, y1), MakePoint(x2, y2)));
-    printf("La ligne à été ajoutée avec succès\n");
+    printf("La ligne a été ajoutée avec succès\n");
 }
 
 void CreateSquare() {
@@ -111,7 +111,7 @@ void CreateSquare() {
     l = ReadIntPositive();
 
     AddShape(MakeSquareShape(MakePoint(x, y), l));
-    printf("Le carré à été ajoutée avec succès\n");
+    printf("Le carré a été ajouté avec succès\n");
 }
 
 void CreateRectangle() {
@@ -127,7 +127,7 @@ void CreateRectangle() {
     h = ReadIntPositive();
 
     AddShape(MakeRectangleShape(MakePoint(x, y), w, h));
-    printf("Le rectangle à été ajoutée avec succès\n");
+    printf("Le rectangle a été ajouté avec succès\n");
 }
 
 void CreateCircle() {
@@ -141,7 +141,7 @@ void CreateCircle() {
     r = ReadIntPositive();
 
     AddShape(MakeCircleShape(MakePoint(x, y), r));
-    printf("Le cercle à été ajoutée avec succès\n");
+    printf("Le cercle a été ajouté avec succès\n");
 }
 
 void CreatePolygon() {
@@ -170,7 +170,7 @@ int MainLoop() {
     int answer;
     while (1) {
         PRINT_ACTIONS_PROMPT;
-        answer = ReadIntBetween(1, 4);
+        answer = ReadIntBetween(1, 5);
 
         //region Création de forme
         if (answer == 1) {
@@ -210,15 +210,15 @@ int MainLoop() {
         else if (answer == 2) {
             int success = 0;
             while (success == 0) {
-                printf("Entrez l'id de la forme à supprimer (ou 0 pour annuler la procédure):\n");
+                printf("Entrez l'ID de la forme à supprimer (ou 0 pour annuler la procédure):\n");
                 int idToDelete = ReadInt();
                 if (idToDelete == 0) break; // Retour
 
                 success = RemoveShape(idToDelete);
-                if (!success) printf("Aucune forme n'a cet id\n");
+                if (!success) printf("Aucune forme n'a cet ID\n");
             }
 
-            if (success) printf("La forme à été supprimée\n");
+            if (success) printf("La forme a été supprimée\n");
 
             continue;
         }
@@ -226,8 +226,10 @@ int MainLoop() {
 
         else if (answer == 3) PrintShapes();
 
-        else if (answer == 4) return 1; // On quitte le programme car l'utilisateur le demande
+        else if (answer == 4) DrawShapes(GetShapes());
 
-        else return 0; // On quitte le programme avec une erreur (on ne devrait jamais arriver ici)
+        else if (answer == 5) return 1; // On quitte le programme car l'utilisateur le demande
+
+        else abort(); // On quitte le programme avec une erreur (on ne devrait jamais arriver ici)
     }
 }

@@ -3,7 +3,6 @@
 #ifndef PROJETC_LINKED_LIST_H
 #define PROJETC_LINKED_LIST_H
 
-#endif //PROJETC_LINKED_LIST_H
 
 typedef struct ShapeLListElement {
     Shape *data;
@@ -22,7 +21,9 @@ typedef struct UIntLListElement {
     struct UIntLListElement *next;
 } UIntLListElement;
 
-typedef struct IntLList {
+typedef struct UIntLList {
     UIntLListElement *first;
     UIntLListElement *last;
 } UIntLList;
+
+#endif //PROJETC_LINKED_LIST_H

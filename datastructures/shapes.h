@@ -1,8 +1,6 @@
 #ifndef PROJETC_SHAPES_H
 #define PROJETC_SHAPES_H
 
-#endif //PROJETC_SHAPES_H
-
 typedef enum EShapeType {
     POINT,
     LINE,
@@ -34,6 +32,7 @@ typedef struct Line {
     Point *start, *end;
 } Line;
 
+Line *MakeLine(Point *start, Point *end);
 Shape *MakeLineShape(Point *start, Point *end);
 void DeleteLine(Line *l);
 void PrintLine(Line *l);
@@ -73,3 +72,6 @@ typedef struct Polygon {
 Shape *MakePolygonShape(Point **points, int numberOfPoints);
 void DeletePolygon(Polygon *p);
 void PrintPolygon(Polygon *p);
+
+
+#endif //PROJETC_SHAPES_H
